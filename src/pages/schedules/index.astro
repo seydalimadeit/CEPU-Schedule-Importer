@@ -1,0 +1,16 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import api from "@/utils/api";
+
+// components
+import ScheduleList from "@/components/ScheduleList.vue";
+
+const schedules = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetch()}`)
+  .then(response => response.json())
+---
+<Layout title="Schedules list">
+  <ScheduleList 
+    client:load
+    schedules={schedules} 
+  />
+</Layout>

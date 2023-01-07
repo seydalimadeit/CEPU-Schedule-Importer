@@ -1,0 +1,42 @@
+.alert {
+  display: flex;
+  margin: 1rem 0;
+
+  width: 100%;
+  max-width: 30rem;
+
+  font-weight: 500;
+
+  padding: 1rem;
+  border-radius: .5rem;
+
+  &__icon {
+    margin-right: .75rem;
+  }
+
+  &__text {
+    font-size: .875rem;
+    line-height: 1.25rem;
+  }
+
+  &__success {
+    background-color: rgb(243 250 247);
+    border: 1px solid rgb(132 225 188);
+
+    color: rgb(4 108 78);
+  }
+
+  &__error {
+    background-color: rgb(253 242 242);
+    border: 1px solid rgb(248 180 180);
+
+    color: rgb(200 30 30);
+  }
+
+  &__warning {
+    background-color: rgb(253 253 234);
+    border: 1px solid rgb(250 202 21);
+
+    color: rgb(142 75 16);
+  }
+}

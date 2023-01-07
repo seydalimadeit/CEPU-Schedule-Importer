@@ -1,0 +1,32 @@
+.schedule {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1rem 1rem;
+  }
+
+  &__list {
+    border: 1px solid #000;
+    
+    &-item {
+      display: flex;
+
+      padding: 1rem;
+      border-bottom: 1px solid #000;
+
+      &:last-child {
+        border-bottom: unset;
+      }
+
+      &-actions {
+        margin-left: auto;
+      }
+    }
+  }
+
+  &__event {
+    display: flex;
+    flex-direction: column;
+  }
+}

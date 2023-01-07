@@ -1,0 +1,33 @@
+---
+// layout
+import Layout from '@/layouts/Layout.astro';
+
+// components
+import GroupSelect from '@/components/GroupSelect.vue'
+
+// api
+import api from '@/utils/api'
+
+// fetch schedules
+const schedules = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetch()}`)
+  .then(response => response.json())
+---
+<Layout title="Welcome to Schedule importer.">
+	<main>
+		<h1 class="heading">Import your <span class="text-gradient">schedule</span></h1>
+    <div class="main__input">
+      <span class="main__input-description">
+        simply type your <span class="text-gradient">group name</span>
+      </span>
+      
+      { schedules.length 
+        ? <GroupSelect 
+            client:load
+            schedules={schedules} 
+          /> 
+        : 'No data loaded'
+      }
+    </div>
+    <img class="hero__img" src="/images/people.svg" alt="People" />
+	</main>
+</Layout>
