@@ -15,9 +15,8 @@
 <script setup lang="ts">
 import type { ISchedule } from "@/interfaces/interfaces";
 import ScheduleItem from '@/components/ScheduleItem.vue';
-import { ScheduleEmit } from '@/constants/emits'
 import api from "@/utils/api";
-import { onMounted, reactive, ref, toRef, toRefs, watch } from "@vue/runtime-core";
+import { reactive, } from "@vue/runtime-core";
 
 const props = defineProps({
   schedules: Array as () => ISchedule[]

@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref } from '@vue/runtime-core'
 import { googleSdkLoaded } from "vue3-google-login"
 import { AlertType } from '@/constants/alert'
 import Alert from '@/components/Alert.vue'

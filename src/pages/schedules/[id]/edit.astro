@@ -15,7 +15,7 @@ const schedule = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.
 
 <Layout title={`edit schedule ${schedule.name}`}>
   <ScheduleEdit
-    client:load 
+    client:only 
     schedule={schedule}
   />
 </Layout>

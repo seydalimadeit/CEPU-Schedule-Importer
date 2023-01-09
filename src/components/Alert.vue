@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from '@vue/runtime-core'
 import { AlertType } from '@/constants/alert'
 
 const props = defineProps({

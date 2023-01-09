@@ -28,5 +28,17 @@
   &__event {
     display: flex;
     flex-direction: column;
+    
+    padding: 1rem;
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+
+      border: 1px solid #000;
+
+      box-shadow: 0px 0px 20px 0px rgb(76, 87, 125);
+    }
   }
 }
