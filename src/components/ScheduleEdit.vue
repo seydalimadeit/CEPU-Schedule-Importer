@@ -3,10 +3,10 @@
     <span>Расписание: {{ scheduleRef.schedule.name }}</span>
     <button @click="save">save</button>
     <div>
-      <div v-for="[day, events] in Object.entries(eventsSortedByDay)">
+      <div v-for="day in weekdays">
         {{ day }}
         <ScheduleEvent 
-          v-for="event in events"
+          v-for="event in eventsSortedByDay[day]"
           :key="event.id"
           :event.sync="event"
           @delete="deleteEvent"
@@ -51,8 +51,14 @@ const eventsSortedByDay = scheduleRef.schedule.events.reduce<eventsSortedByDayTy
     days[eventDay] = []
   }
 
+  days[eventDay].sort((a,b) => moment(a.start.dateTime).valueOf() - moment(b.start.dateTime).valueOf())
+
   return days
 }, {})
+
+const weekdays = moment.weekdays()
+weekdays.shift()
+weekdays.pop()
 
 const save = async () => {
   const params = {

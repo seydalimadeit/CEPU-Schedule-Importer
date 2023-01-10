@@ -6,7 +6,6 @@
       <input v-model="eventRef.description">
       <span>start: <VueTimepicker v-model="startTime" /> </span>
       <span>end: <VueTimepicker v-model="endTime" /> </span>
-      <span>{{ eventRef.extendedProperties }}</span>
       <select v-model="eventRef.extendedProperties.shared.weekType">
         <option value="both" selected>both</option>
         <option value="numerator">numerator</option>
@@ -17,9 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch, reactive, ref, toRef } from '@vue/runtime-core'
+import { computed, watch } from '@vue/runtime-core'
 import VueTimepicker from 'vue3-timepicker'
 import moment from 'moment'
+import { RRule } from 'rrule'
+
 const props = defineProps({
   event: {
     type: Object,
@@ -79,15 +80,24 @@ const eventRef = computed({
 watch(
   () => props.event.extendedProperties.shared.weekType, 
   (weekType) => {
+    const rule = RRule.fromString(props.event.recurrence.toString())
+    
     switch (true) {
-      case weekType === 'numerator':
-        console.log('weekType numerator');
+      case weekType === 'numerator':    
+        rule.origOptions.interval = 2
+        props.event.recurrence = rule.toString()
         break;
       case weekType === 'denominator':
-        console.log('weekType denominator');
+        rule.origOptions.interval = 2
+        props.event.recurrence = rule.toString()
+
+        const startDateTime = moment(props.event.start.dateTime).add(1, 'week').format()
+        const endDateTime = moment(props.event.end.dateTime).add(1, 'week').format()
+
+        props.event.start.dateTime = startDateTime
+        props.event.start.dateTime = endDateTime
         break;
       case weekType === 'both':
-        console.log('break');
         break;
     }
   },
