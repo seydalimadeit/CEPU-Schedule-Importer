@@ -102,8 +102,4 @@ watch(
     }
   },
 );
-
-// both - unchanged
-// numeric - interval 2
-// denumeric - interval 2, add 1 week to startDate
 </script>

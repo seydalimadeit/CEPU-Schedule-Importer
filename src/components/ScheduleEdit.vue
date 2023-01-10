@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>Расписание: {{ scheduleRef.schedule.name }}</span>
+    <span>Расписание: <input v-model="scheduleRef.schedule.name"></span>
     <button @click="save">save</button>
     <div>
       <div v-for="day in weekdays">
