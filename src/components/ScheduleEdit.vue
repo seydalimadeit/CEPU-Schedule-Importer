@@ -1,8 +1,18 @@
 <template>
   <div>
+    <button @click="save">save</button>
     <span>Расписание: <input v-model="scheduleRef.schedule.name"></span>
     <span>Дата конца: <Datepicker v-model="endDate" :enable-time-picker="false"></Datepicker></span>
-    <button @click="save">save</button>
+    <button @click="addEvent">add event</button>
+    <div>
+      added events (exams)
+      <ScheduleEvent 
+        v-for="event in addedEvents"
+        :key="event.id"
+        :event.sync="event"
+        @delete="deleteEvent"
+      />
+    </div>
     <div>
       <div v-for="day in weekdays">
         {{ day }}
@@ -23,11 +33,11 @@ import ScheduleEvent from '@/components/ScheduleEvent.vue'
 
 import { FetchMethods } from '@/constants/fetch';
 import api from '@/utils/api';
-import { reactive } from '@vue/reactivity';
+import { reactive, computed, ref } from '@vue/reactivity';
 import moment from 'moment';
 
 import Datepicker from '@vuepic/vue-datepicker';
-import { ref, watch } from 'vue';
+import { watch } from 'vue';
 import { RRule } from 'rrule';
 
 moment.locale('ru')
@@ -40,7 +50,9 @@ const scheduleRef = reactive({
   schedule: props.schedule
 })
 
-const rule = RRule.fromString(scheduleRef.schedule.events[0].recurrence.toString())
+const addedEvents = ref(scheduleRef.schedule.events.filter(event => !event.recurrence.length))
+
+const rule = RRule.fromString(scheduleRef.schedule.events[scheduleRef.schedule.events.length - 1].recurrence.toString())
 
 const endDate = ref(new Date(rule.origOptions.until))
 
@@ -55,6 +67,41 @@ watch(endDate, (date) => {
   })
 })
 
+const addEvent = () => {
+  const event = {
+    description: '',
+    end: {
+      dateTime: moment().format(),
+      timeZone: 'Europe/Simferopol'
+    },
+    start: {
+      dateTime: moment().format(),
+      timeZone: 'Europe/Simferopol'
+    },
+    extendedProperties: {
+      shared: {
+        weekType: 'both'
+      }
+    },
+    location: "КИПУ",
+    reminders: {
+      useDefault: false,
+      overrides: [
+        {
+          method: "popup",
+          minutes: 10
+        }
+      ]
+    },
+    recurrence: [],
+    summary: {
+      name: ''
+    }
+  }
+
+  addedEvents.value.unshift(event)
+}
+
 const deleteEvent = (id) => {
   const index = props.schedule.events.findIndex(event => event.id === id)
   scheduleRef.schedule.events.splice(index, 1)
@@ -62,25 +109,29 @@ const deleteEvent = (id) => {
 
 type eventsSortedByDayType = Record<string, any[]>
 
-const eventsSortedByDay = scheduleRef.schedule.events.reduce<eventsSortedByDayType>((days, event) => {
-  const eventDay = moment(event.end.dateTime).format('dddd')
-  
-  if(eventDay in days) {
-    days[eventDay].push(event)
-  } else {
-    days[eventDay] = []
-  }
+const eventsSortedByDay = computed(() => {
+  return scheduleRef.schedule.events.reduce<eventsSortedByDayType>((days, event) => {
+    const eventDay = moment(event.end.dateTime).format('dddd')
+    
+    if(eventDay in days) {
+      days[eventDay].push(event)
+    } else {
+      days[eventDay] = []
+    }
 
-  days[eventDay].sort((a,b) => moment(a.start.dateTime).valueOf() - moment(b.start.dateTime).valueOf())
+    days[eventDay].sort((a,b) => moment(a.start.dateTime).valueOf() - moment(b.start.dateTime).valueOf())
 
-  return days
-}, {})
+    return days
+  }, {})
+})
 
 const weekdays = moment.weekdays()
 weekdays.shift()
 weekdays.pop()
 
 const save = async () => {
+  scheduleRef.schedule.events = [...scheduleRef.schedule.events, ...addedEvents.value]
+
   const params = {
     method: FetchMethods.PATCH,
     body: JSON.stringify(scheduleRef.schedule),

@@ -6,7 +6,7 @@
       <input v-model="eventRef.description">
       <span>start: <Datepicker v-model="startTime" time-picker /> </span>
       <span>end: <Datepicker v-model="endTime" time-picker /> </span>
-      <select v-model="eventRef.extendedProperties.shared.weekType">
+      <select v-if="eventRef.recurrence.length" v-model="eventRef.extendedProperties.shared.weekType">
         <option value="both" selected>both</option>
         <option value="numerator">numerator</option>
         <option value="denominator">denominator</option>
