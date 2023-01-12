@@ -4,8 +4,8 @@
       <button @click="deleteEvent">delete</button>
       <input v-model="eventRef.summary.name">
       <input v-model="eventRef.description">
-      <span>start: <VueTimepicker v-model="startTime" /> </span>
-      <span>end: <VueTimepicker v-model="endTime" /> </span>
+      <span>start: <Datepicker v-model="startTime" time-picker /> </span>
+      <span>end: <Datepicker v-model="endTime" time-picker /> </span>
       <select v-model="eventRef.extendedProperties.shared.weekType">
         <option value="both" selected>both</option>
         <option value="numerator">numerator</option>
@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { computed, watch } from '@vue/runtime-core'
-import VueTimepicker from 'vue3-timepicker'
+import Datepicker from '@vuepic/vue-datepicker';
 import moment from 'moment'
 import { RRule } from 'rrule'
 
@@ -36,15 +36,17 @@ const deleteEvent = () => {
 
 const startTime = computed({
   get() {
-    return moment(props.event.start.dateTime).format('HH:mm')
+    const time = new Date(props.event.start.dateTime)
+    return {
+      hours: time.getHours(),
+      minutes: time.getMinutes()
+    }
   },
 
-  set(selectedTime) {
-    const [hour, minute] = selectedTime.split(':')
-
+  set(selectedTime: any) {
     const dateTime = moment(props.event.start.dateTime)
-      .hour(Number(hour))
-      .minute(Number(minute))
+      .hour(Number(selectedTime.hours))
+      .minute(Number(selectedTime.minutes))
       .format()
 
     props.event.start.dateTime = dateTime
@@ -53,15 +55,17 @@ const startTime = computed({
 
 const endTime = computed({
   get() {
-    return moment(props.event.end.dateTime).format('HH:mm')
+    const time = new Date(props.event.end.dateTime)
+    return {
+      hours: time.getHours(),
+      minutes: time.getMinutes()
+    }
   },
 
-  set(selectedTime) {
-    const [hour, minute] = selectedTime.split(':')
-
+  set(selectedTime: any) {
     const dateTime = moment(props.event.end.dateTime)
-      .hour(Number(hour))
-      .minute(Number(minute))
+      .hour(Number(selectedTime.hours))
+      .minute(Number(selectedTime.minutes))
       .format()
 
     props.event.end.dateTime = dateTime

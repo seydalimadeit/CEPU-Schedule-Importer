@@ -1,6 +1,7 @@
 <template>
   <div>
     <span>Расписание: <input v-model="scheduleRef.schedule.name"></span>
+    <span>Дата конца: <Datepicker v-model="endDate" :enable-time-picker="false"></Datepicker></span>
     <button @click="save">save</button>
     <div>
       <div v-for="day in weekdays">
@@ -25,6 +26,10 @@ import api from '@/utils/api';
 import { reactive } from '@vue/reactivity';
 import moment from 'moment';
 
+import Datepicker from '@vuepic/vue-datepicker';
+import { ref, watch } from 'vue';
+import { RRule } from 'rrule';
+
 moment.locale('ru')
 
 const props = defineProps({
@@ -33,6 +38,21 @@ const props = defineProps({
 
 const scheduleRef = reactive({
   schedule: props.schedule
+})
+
+const rule = RRule.fromString(scheduleRef.schedule.events[0].recurrence.toString())
+
+const endDate = ref(new Date(rule.origOptions.until))
+
+watch(endDate, (date) => {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  scheduleRef.schedule.events.map(event => {
+    rule.origOptions.until = new Date(year, month, day)
+    event.recurrence = [rule.toString()]
+  })
 })
 
 const deleteEvent = (id) => {
