@@ -12,9 +12,12 @@
   },
   "dependencies": {
     "@astrojs/vue": "^1.2.2",
+    "@fontsource/inter": "^4.5.15",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/vue-fontawesome": "^3.0.2",
+    "@vuelidate/core": "^2.0.0",
+    "@vuelidate/validators": "^2.0.0",
     "@vuepic/vue-datepicker": "^3.6.4",
     "astro": "^1.9.0",
     "moment": "^2.29.4",
@@ -26,6 +29,7 @@
   },
   "devDependencies": {
     "@types/vue-select": "^3.16.2",
+    "@types/vuelidate": "^0.7.15",
     "sass": "^1.57.1"
   }
 }

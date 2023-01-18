@@ -1,11 +1,19 @@
 <template>
   <div class="schedule__event">
-    <div class="schedule__event-item">
+    <div 
+      :class="[
+        'schedule__event-item', 
+        { 'schedule__event-item--invalid': v$.$invalid }
+      ]"
+    >
       <button @click="deleteEvent">delete</button>
-      <input v-model="eventRef.summary.name">
-      <input v-model="eventRef.description">
-      <span>start: <Datepicker v-model="startTime" time-picker /> </span>
-      <span>end: <Datepicker v-model="endTime" time-picker /> </span>
+      <input 
+        :class="{ 'invalid': v$.summary.name.$invalid }" 
+        v-model.trim="v$.summary.name.$model"
+      >
+      <input :class="{ 'invalid': true }" v-model.trim="v$.description.$model">
+      <span :class="{ 'invalid': true }">start: <Datepicker v-model="startTime" time-picker :clearable="false" /> </span>
+      <span>end: <Datepicker v-model="endTime" time-picker :clearable="false" /> </span>
       <select v-if="eventRef.recurrence.length" v-model="eventRef.extendedProperties.shared.weekType">
         <option value="both" selected>both</option>
         <option value="numerator">numerator</option>
@@ -16,17 +24,75 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from '@vue/runtime-core'
+import { computed, watch, PropType } from '@vue/runtime-core'
 import Datepicker from '@vuepic/vue-datepicker';
 import moment from 'moment'
 import { RRule } from 'rrule'
+import type { IEvent } from '@/interfaces/interfaces'
+
+import { useVuelidate } from '@vuelidate/core'
+import { required, minLength } from '@vuelidate/validators'
 
 const props = defineProps({
   event: {
-    type: Object,
-    required: true
+    required: true,
+    type: Object as PropType<IEvent>,
   }
 })
+
+const eventRef = computed<IEvent>({
+  get() {
+    return props.event
+  },
+  set(updatedEvent) {
+    emit('update:event', updatedEvent)
+  }
+})
+
+const rules = computed(() => ({
+  description: {
+    required,
+    minLength: minLength(1)
+  },
+  start: {
+    required,
+    dateTime: {
+      required,
+      minValue: value => moment(value).isValid()
+    },
+    timeZone: {
+      required,
+      minLength: minLength(1)
+    }
+  },
+  end: {
+    required,
+    dateTime: {
+      required,
+      minValue: value => moment(value).isValid()
+    },
+    timeZone: {
+      required,
+      minLength: minLength(1)
+    }
+  },
+  recurrence: {},
+  extendedProperties: {
+    required
+  },
+  reminders: {
+    required
+  },
+  summary: {
+    name: {
+      required,
+      minLength: minLength(1)
+    },
+    id: {}
+  } 
+}))
+
+const v$ = useVuelidate<IEvent>(rules, eventRef)
 
 const emit = defineEmits(['update:event', 'delete'])
 
@@ -72,15 +138,6 @@ const endTime = computed({
   }
 })
 
-const eventRef = computed({
-  get() {
-    return props.event
-  },
-  set(updatedEvent) {
-    emit('update:event', updatedEvent)
-  }
-})
-
 watch(
   () => props.event.extendedProperties.shared.weekType, 
   (weekType) => {
@@ -89,11 +146,11 @@ watch(
     switch (true) {
       case weekType === 'numerator':    
         rule.origOptions.interval = 2
-        props.event.recurrence = rule.toString()
+        props.event.recurrence = [rule.toString()]
         break;
       case weekType === 'denominator':
         rule.origOptions.interval = 2
-        props.event.recurrence = rule.toString()
+        props.event.recurrence = [rule.toString()]
 
         const startDateTime = moment(props.event.start.dateTime).add(1, 'week').format()
         const endDateTime = moment(props.event.end.dateTime).add(1, 'week').format()

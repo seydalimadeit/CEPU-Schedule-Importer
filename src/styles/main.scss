@@ -2,12 +2,16 @@
 @import "the-new-css-reset/css/reset.css";
 @import '@vuepic/vue-datepicker/src/VueDatePicker/style/main.scss';
 
+// font
+@import "@fontsource/inter";
+@import "@fontsource/inter/700.css";
+
 @import './alert.scss';
 @import './schedule.scss';
 @import './variables.scss';
 
 html {
-  font-family: system-ui, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
