@@ -5,7 +5,7 @@
     </span>
     <div class="schedule__list-item-actions">
       <a 
-        :href="`${schedule.id}/edit`" 
+        :href="`/schedules/${schedule.id}/edit`" 
         class="schedule__list-item-actions--action"
       >
         <FAIcon :icon="editIcon" />

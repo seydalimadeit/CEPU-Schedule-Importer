@@ -1,30 +1,80 @@
 <template>
-  <div class="schedule__event">
-    <div 
-      :class="[
-        'schedule__event-item', 
-        { 'schedule__event-item--invalid': v$.$invalid }
-      ]"
-    >
-      <button @click="deleteEvent">delete</button>
-      <input 
-        :class="{ 'invalid': v$.summary.name.$invalid }" 
-        v-model.trim="v$.summary.name.$model"
-      >
-      <input :class="{ 'invalid': true }" v-model.trim="v$.description.$model">
-      <span :class="{ 'invalid': true }">start: <Datepicker v-model="startTime" time-picker :clearable="false" /> </span>
-      <span>end: <Datepicker v-model="endTime" time-picker :clearable="false" /> </span>
-      <select v-if="eventRef.recurrence.length" v-model="eventRef.extendedProperties.shared.weekType">
-        <option value="both" selected>both</option>
-        <option value="numerator">numerator</option>
-        <option value="denominator">denominator</option>
-      </select>
+  <div
+    :class="[
+      'schedule__event',
+      eventValidationClass
+    ]"
+  >
+    <div>
+      <div class="schedule__event-header">
+        <div class="schedule__event-input-group">
+          <span>Title:</span>
+          <input
+            :class="[
+              'schedule__input',
+              [v$.summary.name.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
+            ]"
+            v-model.trim="v$.summary.name.$model"
+          >
+        </div>
+        <button 
+          class="schedule__list-item-actions--action" 
+          @click="deleteEvent"
+        >
+          <FAIcon :icon="deleteIcon" />
+        </button>
+      </div>
+
+      <div class="schedule__event-input-group">
+        <span>Description:</span>
+        <input
+          :class="[
+            'schedule__input',
+            [v$.description.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
+          ]"
+          v-model.trim="v$.description.$model"
+        >
+      </div>
+
+      <div class="schedule__event-input-group">
+        <span>Start time:</span>
+        <Datepicker 
+          v-model="startTime" 
+          :time-picker="!props.dateSelect"
+          :clearable="false"
+        />
+      </div>
+
+      <div class="schedule__event-input-group">
+        <span>End time:</span>
+        <Datepicker 
+          v-model="endTime" 
+          :time-picker="!props.dateSelect"
+          :clearable="false"
+        />
+      </div>
+
+      <div class="schedule__event-input-group">
+        <span>Week type:</span>
+        <select 
+          :class="[
+            'schedule__input',
+            [v$.extendedProperties.shared.weekType.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
+          ]"
+          v-model="v$.extendedProperties.shared.weekType.$model"
+          @change="changeWeekType"
+        >
+          <option value="both" selected>both</option>
+          <option value="numerator">numerator</option>
+          <option value="denominator">denominator</option>
+        </select>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, watch, PropType } from '@vue/runtime-core'
+import { computed, PropType } from '@vue/runtime-core'
 import Datepicker from '@vuepic/vue-datepicker';
 import moment from 'moment'
 import { RRule } from 'rrule'
@@ -32,22 +82,22 @@ import type { IEvent } from '@/interfaces/interfaces'
 
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
+import { ScheduleEmit } from '@/constants/emits';
 
 const props = defineProps({
   event: {
     required: true,
     type: Object as PropType<IEvent>,
+  },
+  dateSelect: {
+    type: Boolean,
+    default: false
   }
 })
 
-const eventRef = computed<IEvent>({
-  get() {
-    return props.event
-  },
-  set(updatedEvent) {
-    emit('update:event', updatedEvent)
-  }
-})
+const emit = defineEmits([ScheduleEmit.DELETE])
+
+const deleteIcon = 'trash'
 
 const rules = computed(() => ({
   description: {
@@ -69,7 +119,7 @@ const rules = computed(() => ({
     required,
     dateTime: {
       required,
-      minValue: value => moment(value).isValid()
+      minValue: value => moment(value).isValid() && moment(value).isAfter(moment(props.event.start.dateTime))
     },
     timeZone: {
       required,
@@ -78,7 +128,9 @@ const rules = computed(() => ({
   },
   recurrence: {},
   extendedProperties: {
-    required
+    shared: {
+      weekType: {}
+    }
   },
   reminders: {
     required
@@ -88,20 +140,27 @@ const rules = computed(() => ({
       required,
       minLength: minLength(1)
     },
-    id: {}
   } 
 }))
 
-const v$ = useVuelidate<IEvent>(rules, eventRef)
+const v$ = useVuelidate<IEvent>(rules, props.event)
 
-const emit = defineEmits(['update:event', 'delete'])
+const eventValidationClass = computed(() => {
+  return v$.value.$invalid
+    ? 'schedule__event--invalid'
+    : 'schedule__event--valid' 
+})
 
 const deleteEvent = () => {
-  emit('delete', props.event.id)
+  emit(ScheduleEmit.DELETE)
 }
 
 const startTime = computed({
   get() {
+    if(props.dateSelect) {
+      return props.event.start.dateTime
+    }
+
     const time = new Date(props.event.start.dateTime)
     return {
       hours: time.getHours(),
@@ -110,6 +169,11 @@ const startTime = computed({
   },
 
   set(selectedTime: any) {
+    if(props.dateSelect) {
+      props.event.start.dateTime = moment(selectedTime).format()
+      return
+    }
+
     const dateTime = moment(props.event.start.dateTime)
       .hour(Number(selectedTime.hours))
       .minute(Number(selectedTime.minutes))
@@ -121,6 +185,10 @@ const startTime = computed({
 
 const endTime = computed({
   get() {
+    if(props.dateSelect) {
+      return props.event.end.dateTime
+    }
+
     const time = new Date(props.event.end.dateTime)
     return {
       hours: time.getHours(),
@@ -129,6 +197,11 @@ const endTime = computed({
   },
 
   set(selectedTime: any) {
+    if(props.dateSelect) {
+      props.event.end.dateTime = moment(selectedTime).format()
+      return
+    }
+    
     const dateTime = moment(props.event.end.dateTime)
       .hour(Number(selectedTime.hours))
       .minute(Number(selectedTime.minutes))
@@ -138,29 +211,28 @@ const endTime = computed({
   }
 })
 
-watch(
-  () => props.event.extendedProperties.shared.weekType, 
-  (weekType) => {
-    const rule = RRule.fromString(props.event.recurrence.toString())
+const changeWeekType = (event) => {
+  const weekType = event.target.value
+  
+  const rule = RRule.fromString(props.event.recurrence.toString())
     
-    switch (true) {
-      case weekType === 'numerator':    
-        rule.origOptions.interval = 2
-        props.event.recurrence = [rule.toString()]
-        break;
-      case weekType === 'denominator':
-        rule.origOptions.interval = 2
-        props.event.recurrence = [rule.toString()]
+  switch (true) {
+    case weekType === 'numerator':    
+      rule.origOptions.interval = 2
+      props.event.recurrence = [rule.toString()]
+      break;
+    case weekType === 'denominator':
+      rule.origOptions.interval = 2
+      props.event.recurrence = [rule.toString()]
 
-        const startDateTime = moment(props.event.start.dateTime).add(1, 'week').format()
-        const endDateTime = moment(props.event.end.dateTime).add(1, 'week').format()
+      const startDateTime = moment(props.event.start.dateTime).add(1, 'week').format()
+      const endDateTime = moment(props.event.end.dateTime).add(1, 'week').format()
 
-        props.event.start.dateTime = startDateTime
-        props.event.start.dateTime = endDateTime
-        break;
-      case weekType === 'both':
-        break;
-    }
-  },
-);
+      props.event.start.dateTime = startDateTime
+      props.event.end.dateTime = endDateTime
+      break;
+    case weekType === 'both':
+      break;
+  }
+}
 </script>

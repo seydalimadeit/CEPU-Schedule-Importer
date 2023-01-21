@@ -17,10 +17,12 @@ export interface IEventExtendedProperties {
 
 export interface IEventReminders {
   useDefault: boolean,
-  overrides: {
-    method: string
-    minutes: number
-  }
+  overrides: [
+    {
+      method: string
+      minutes: number
+    }
+  ]
 }
 
 export interface IEventSummary {

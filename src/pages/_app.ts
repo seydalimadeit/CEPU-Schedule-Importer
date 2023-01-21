@@ -3,7 +3,7 @@ import type { App } from 'vue';
 import vSelect from "vue-select";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCircleXmark, faCircleCheck, faTriangleExclamation, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faCircleCheck, faTriangleExclamation, faPenToSquare, faTrash, faCircleChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(
@@ -11,7 +11,8 @@ library.add(
   faCircleCheck,
   faTriangleExclamation,
   faPenToSquare,
-  faTrash
+  faTrash,
+  faCircleChevronLeft
 );
 
 export default (app: App) => {

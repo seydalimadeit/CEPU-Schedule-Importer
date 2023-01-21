@@ -85,24 +85,152 @@
     }
   }
 
-  &__event {
+  &__edit {
     display: flex;
     flex-direction: column;
-    
-    padding: 1rem;
 
-    &-item {
+    padding: 3rem;
+
+    &-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 100%;
+
+      margin-bottom: 2rem;
+      background-color: var(--grey-light);
       padding: 1rem;
+      border-radius: var(--border-radius);
 
-      border: 1px solid #000;
+      h2 {
+        width: 100%;
+      }
+    }
 
-      box-shadow: 0px 0px 20px 0px rgb(76, 87, 125);
+    &-input {
+      width: 100%;
+      max-width: 30rem;
+      margin-left: .5rem;
+      padding: .5rem;
+      background-color: #fff;
+      border-radius: var(--border-radius);
+    }
+
+    &-btn {
+      background-color: #fff;
+      border-radius: var(--border-radius);
+      padding: .5rem 1rem;
+
+      &--valid {
+        border: 1px solid var(--valid);
+        color: var(--valid);
+      }
 
       &--invalid {
-        border: 1px solid red;
+        border: 1px solid var(--invalid);
+        color: var(--invalid);
       }
+    }
+
+    &-enddate {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+
+      &-label {
+        margin-bottom: 0.5rem;
+      }
+
+      &-selector {
+        max-width: 20rem;
+
+        &--valid {
+          input {
+            border: 1px solid var(--valid);
+          }
+        }
+
+        &--invalid {
+          input {
+            border: 1px solid var(--invalid);
+          }
+        }
+      }
+    }
+  }
+
+  &__event {
+    flex: calc(50% - 1rem);
+
+    padding: 1rem;
+
+    border: 1px solid #000;
+    border-radius: var(--border-radius);
+
+    &--invalid {
+      border: 1px solid var(--invalid);
+    }
+
+    &--valid {
+      border: 1px solid var(--valid);
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-input-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 0.5rem;
+
+      span {
+        margin-right: 0.5rem;
+        white-space: nowrap;
+      }
+    }
+    
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 1rem;
+
+      &-day {
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+      &-type {
+        font-size: 1.2rem;
+        font-weight: 700;
+
+        margin: 1rem 0;
+      }
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.2rem;
+    border-radius: var(--border-radius);
+    height: 2rem;
+    display: flex;
+    align-items: center;
+
+    &--valid {
+      border: 1px solid var(--valid);
+    }
+
+    &--invalid {
+      border: 1px solid var(--invalid);
     }
   }
 }

@@ -9,17 +9,19 @@
     <button class="main__input-btn" @click="login">Import</button>
   </div>
 
-  <Alert :type="AlertType.SUCCESS" v-if="success">
-    Success alert!
-  </Alert>
+  <div class="alert__wrapper">
+    <Alert :type="AlertType.SUCCESS" v-if="success">
+      Success alert!
+    </Alert>
 
-  <Alert :type="AlertType.ERROR" v-if="error">
-    Error alert!
-  </Alert>
+    <Alert :type="AlertType.ERROR" v-if="error">
+      Error alert!
+    </Alert>
 
-  <Alert :type="AlertType.WARNING" v-if="loading">
-    Loading alert!
-  </Alert>
+    <Alert :type="AlertType.WARNING" v-if="loading">
+      Loading alert!
+    </Alert>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,9 +1,13 @@
 .alert {
+  &__wrapper {
+    max-width: 30rem;
+    width: 100%;
+  }
+
   display: flex;
   margin: 1rem 0;
 
   width: 100%;
-  max-width: 30rem;
 
   font-weight: 500;
 
