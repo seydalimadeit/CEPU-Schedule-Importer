@@ -1,11 +1,12 @@
 <template>
   <div>
-    <button @click="addEvent">add event</button>
     <span class="schedule__event-list-day">
       Unsorted events
+      <button @click="addEvent">
+        <FAIcon icon="circle-plus" />
+      </button>
     </span>
 
-    <div class="schedule__event-list-type">Unsorted events</div>
     <div class="schedule__event-list">
       <ScheduleEvent 
         v-for="(event, index) in state.events"
@@ -81,6 +82,6 @@ const addEvent = () => {
     summary
   )
 
-  state.events.unshift(event)
+  state.events.push(event)
 }
 </script>

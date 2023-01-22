@@ -9,13 +9,24 @@
       <div class="schedule__event-header">
         <div class="schedule__event-input-group">
           <span>Title:</span>
-          <input
-            :class="[
-              'schedule__input',
-              [v$.summary.name.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
-            ]"
-            v-model.trim="v$.summary.name.$model"
-          >
+
+          <div class="schedule__event-input-field">
+            <input
+              :class="[
+                'schedule__input',
+                [v$.summary.name.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
+              ]"
+              v-model.trim="v$.summary.name.$model"
+            >
+            <label 
+              class="schedule__input-label schedule__input-label--error"
+              v-if="v$.summary.name.$errors.length"
+              v-for="error in v$.summary.name.$errors"
+              :key="error"
+            >
+              {{ error.$message }}
+            </label>
+          </div>
         </div>
         <button 
           class="schedule__list-item-actions--action" 
@@ -27,13 +38,24 @@
 
       <div class="schedule__event-input-group">
         <span>Description:</span>
-        <input
-          :class="[
-            'schedule__input',
-            [v$.description.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
-          ]"
-          v-model.trim="v$.description.$model"
-        >
+
+        <div class="schedule__event-input-field">
+          <input
+            :class="[
+              'schedule__input',
+              [v$.description.$invalid ? 'schedule__input--invalid' : 'schedule__input--valid']
+            ]"
+            v-model.trim="v$.description.$model"
+          >
+          <label 
+            class="schedule__input-label schedule__input-label--error"
+            v-if="v$.description.$errors.length"
+            v-for="error in v$.description.$errors"
+            :key="error"
+          >
+            {{ error.$message }}
+          </label>
+        </div>
       </div>
 
       <div class="schedule__event-input-group">
@@ -74,15 +96,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, PropType } from '@vue/runtime-core'
+import { computed, onMounted, PropType } from '@vue/runtime-core'
 import Datepicker from '@vuepic/vue-datepicker';
 import moment from 'moment'
 import { RRule } from 'rrule'
 import type { IEvent } from '@/interfaces/interfaces'
 
 import { useVuelidate } from '@vuelidate/core'
-import { required, minLength } from '@vuelidate/validators'
+import { required, minLength, helpers } from '@vuelidate/validators'
 import { ScheduleEmit } from '@/constants/emits';
+import { ValidationMessages } from '@/helpers/messages';
 
 const props = defineProps({
   event: {
@@ -101,11 +124,11 @@ const deleteIcon = 'trash'
 
 const rules = computed(() => ({
   description: {
-    required,
+    required: helpers.withMessage(ValidationMessages.REQUIRED, required),
     minLength: minLength(1)
   },
   start: {
-    required,
+    required: helpers.withMessage(ValidationMessages.REQUIRED, required),
     dateTime: {
       required,
       minValue: value => moment(value).isValid()
@@ -116,7 +139,7 @@ const rules = computed(() => ({
     }
   },
   end: {
-    required,
+    required: helpers.withMessage(ValidationMessages.REQUIRED, required),
     dateTime: {
       required,
       minValue: value => moment(value).isValid() && moment(value).isAfter(moment(props.event.start.dateTime))
@@ -133,17 +156,21 @@ const rules = computed(() => ({
     }
   },
   reminders: {
-    required
+    required: helpers.withMessage(ValidationMessages.REQUIRED, required),
   },
   summary: {
     name: {
-      required,
+      required: helpers.withMessage(ValidationMessages.REQUIRED, required),
       minLength: minLength(1)
     },
   } 
 }))
 
 const v$ = useVuelidate<IEvent>(rules, props.event)
+
+onMounted(() => {
+  v$.value.$touch()
+})
 
 const eventValidationClass = computed(() => {
   return v$.value.$invalid
