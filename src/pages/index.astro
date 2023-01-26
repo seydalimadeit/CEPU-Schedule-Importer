@@ -3,14 +3,11 @@
 import Layout from '@/layouts/Layout.astro';
 
 // components
-import GroupSelect from '@/components/GroupSelect.vue'
-
-// api
-import api from '@/utils/api'
+import GroupSelect from '@/components/schedule-import/GroupSelect.vue'
+import { getSchedules } from './api/api';
 
 // fetch schedules
-const schedules = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetch()}`)
-  .then(response => response.json())
+const schedules = await getSchedules(Astro.request)
 ---
 <Layout title="Welcome to Schedule importer.">
 	<main>

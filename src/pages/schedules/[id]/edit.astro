@@ -1,7 +1,8 @@
 ---
-import ScheduleEdit from "@/components/ScheduleEdit.vue";
+import ScheduleEdit from "@/components/schedules/edit/ScheduleEdit.vue";
 import Layout from "@/layouts/Layout.astro";
-import api from "@/utils/api";
+import Authorized from "@/layouts/Authorized.astro";
+import { getSchedule } from "@/pages/api/api";
 
 export interface Params {
 	id: string;
@@ -9,13 +10,14 @@ export interface Params {
 
 const { id } = Astro.params;
 
-const schedule = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetchById(id as string)}`)
-  .then(response => response.json())
+const schedule = await getSchedule(Astro.request, id)
 ---
 
 <Layout title={`Edit schedule ${schedule.name}`}>
-  <ScheduleEdit
-    client:only 
-    schedule={schedule}
-  />
+  <Authorized>
+    <ScheduleEdit
+      client:only 
+      schedule={schedule}
+    />
+  </Authorized>
 </Layout>

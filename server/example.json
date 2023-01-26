@@ -1,0 +1,407 @@
+[
+  {
+    "summary": "Разработка серверных приложений",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 237, к.т.н.доц Абдурайимов Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-17T11:30:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-17T13:00:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "numerator"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Программирование и поддержка веб-приложений",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 239, к.т.н.доц Абдурайимов Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-17T13:10:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-17T14:40:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Моделирование соц-экономических и полит процессов",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 239, к.ф-м.н.доц Умеров Э.А.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-17T14:50:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-17T16:20:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Машинное обучение (Machine Learning)",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 239, к.т.н доц Аблаева Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-18T13:10:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-18T14:40:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Проектный практикум",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 238б, преп Аметов О.М.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-19T11:30:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-19T13:00:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Обработка изображений и мультимедиа",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 239, ст переп Сейдаметов Г.С.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-19T13:10:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-19T14:40:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Обработка изображений и мультимедиа",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 238б, ст переп Сейдаметов Г.С.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-19T14:50:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-19T16:20:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Параллельные и распределенные вычисления",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 238б, к.п.н.доц Меметова Ф.С.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-20T11:30:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-20T13:00:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Разработка серверных приложений",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 239, к.т.н.доц Абдурайимов Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-20T13:10:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-20T14:40:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Проектный практикум",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 236, к.п.н.доц Меметова Ф.С.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-20T14:50:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-20T16:20:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "numerator"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Разработка серверных приложений",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 233б, к.т.н.доц Абдурайимов Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-20T14:50:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-20T16:20:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "denominator"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Программирование и поддержка веб-приложений",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 235б, к.т.н.доц Абдурайимов Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-20T11:30:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-20T13:00:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "denominator"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Моделирование соц-экономических и полит процессов",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 223, к.ф-м.н.доц Умеров Э.А.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-17T13:10:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-17T14:40:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "numerator"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "Программирование и поддержка веб-приложений",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 235б, к.т.н.доц Абдурайимов Л.Н.",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-17T13:10:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-17T14:40:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "denominator"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  },
+  {
+    "summary": "араллельные и распределенные вычисления",
+    "location": "г. Симферополь, пер.Учебный, 8",
+    "description": "Аудитория 236, к.п.н.доц Меметова Ф.С.)",
+    "start": {
+      "dateTime": "начало занятия в формате 2022-10-17T14:50:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "end": {
+      "dateTime": "конец занятия в формате 2022-10-17T16:20:00+03:00",
+      "timeZone": "Ukraine/Kyiv"
+    },
+    "recurrence": [
+      "RRULE:FREQ=DAILY;COUNT=2" 
+    ],
+    "extendedProperties": {
+      "shared": {
+        "weekType": "both"
+      }
+    },
+    "reminders": {
+      "useDefault": true,
+      "overrides": [
+        {"method": "popup", "minutes": 10 }
+      ]
+    }
+  }
+]

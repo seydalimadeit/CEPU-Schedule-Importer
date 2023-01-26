@@ -1,4 +1,5 @@
 export enum FetchMethods {
   DELETE = 'DELETE',
-  PATCH = 'PATCH'
+  PATCH = 'PATCH',
+  POST = 'POST'
 }

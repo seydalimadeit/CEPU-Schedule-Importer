@@ -1,16 +1,18 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import api from "@/utils/api";
+import Authorized from "@/layouts/Authorized.astro";
 
 // components
-import ScheduleList from "@/components/ScheduleList.vue";
+import ScheduleList from "@/components/schedules/ScheduleList.vue";
+import { getSchedules } from "../api/api";
 
-const schedules = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetch()}`)
-  .then(response => response.json())
+const schedules = await getSchedules(Astro.request)
 ---
 <Layout title="Schedules list">
-  <ScheduleList 
-    client:load
-    schedules={schedules} 
-  />
+  <Authorized>
+    <ScheduleList 
+      client:load
+      schedules={schedules} 
+    />
+  </Authorized>
 </Layout>
