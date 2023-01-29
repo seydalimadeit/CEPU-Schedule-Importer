@@ -2,10 +2,10 @@
   <ul class="schedule__list">
     <div class="schedule__list-header">
       <span>
-        Schedules
+        {{ t('schedule.title', 1) }}
       </span>
       <span>
-        Actions
+        {{ t('schedule.actions') }}
       </span>
     </div>
     <ScheduleItem
@@ -22,6 +22,10 @@ import ScheduleItem from '@/components/schedules/ScheduleItem.vue';
 import { ScheduleEmit } from '@/constants/emits';
 import type { ISchedule } from '@/interfaces/interfaces';
 import type { PropType } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
+
 defineProps({
   searchedSchedules: {
     required: true,

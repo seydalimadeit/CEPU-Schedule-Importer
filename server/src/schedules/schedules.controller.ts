@@ -21,7 +21,7 @@ export class SchedulesController {
 
   @UseInterceptors(FileInterceptor('file'))
   @Post()
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   create(
     @UploadedFile()
     file: Express.Multer.File,

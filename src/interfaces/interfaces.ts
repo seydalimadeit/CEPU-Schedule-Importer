@@ -1,3 +1,4 @@
+import { AlertType } from './../constants/alert';
 export interface ISchedule {
   id: string
   name: string,
@@ -44,4 +45,9 @@ export interface IEvent {
 
 export interface IResponse {
   code: string
+}
+
+export interface IAlert {
+  message: string, 
+  type: AlertType
 }

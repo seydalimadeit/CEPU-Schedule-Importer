@@ -1,0 +1,12 @@
+{
+  "import": {
+    "title": "Import",
+    "heading": "Import your <span class='text-gradient'>schedule</span>",
+    "subheading": "simply type your <span class='text-gradient'>group name</span>",
+    "status": {
+      "loading": "Loading your schedule.",
+      "success": "Schedule loaded successfully.",
+      "error": "Error while importing schedule. Please try again."
+    }
+  }
+}

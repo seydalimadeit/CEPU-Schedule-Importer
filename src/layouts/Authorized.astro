@@ -2,12 +2,12 @@
 import GoogleOneTap from '@/components/auth/GoogleOneTap.vue'
 import { validateToken } from "@/pages/api/api";
 
+const { cookies } = Astro
+
 const response: Response = await validateToken(Astro.request)
 const isAuthenticated = response.status === 200
 ---
-<div>
-  { isAuthenticated 
-    ? <slot /> 
-    : <GoogleOneTap client:load />
-  }
-</div>
+{ isAuthenticated 
+  ? <slot /> 
+  : <GoogleOneTap client:load />
+}

@@ -1,0 +1,15 @@
+.login {
+  &__wrapper {
+    margin: auto;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
+}

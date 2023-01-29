@@ -1,50 +1,47 @@
 <template>
-  <div class="main__input-input" v-if="ableToSelect">
+  <div class="main__input-input" v-if="!alert.type && !alert.message">
     <ComponentVSelect 
       v-model.trim="scheduleId"  
       :options="schedules" 
       :reduce="schedule => schedule.id" 
       label="name"
     />
-    <button class="main__input-btn" @click="login">Import</button>
+    <button class="main__input-btn" @click="login">
+      {{ t('import.title') }}
+    </button>
   </div>
 
   <div class="alert__wrapper">
-    <Alert :type="AlertType.SUCCESS" v-if="success">
-      Success alert!
-    </Alert>
-
-    <Alert :type="AlertType.ERROR" v-if="error">
-      Error alert!
-    </Alert>
-
-    <Alert :type="AlertType.WARNING" v-if="loading">
-      Loading alert!
+    <Alert 
+      v-if="alert.type && alert.message" 
+      :type="alert.type"
+    >
+      {{ alert.message }}
     </Alert>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from '@vue/runtime-core'
+import { PropType, ref } from '@vue/runtime-core'
 import { googleSdkLoaded } from "vue3-google-login"
 import { AlertType } from '@/constants/alert'
 import Alert from '@/components/alert/Alert.vue'
-import type { IResponse } from '@/interfaces/interfaces';
+import type { IAlert, IResponse, ISchedule } from '@/interfaces/interfaces';
+import { useI18n } from 'vue-i18n';
+import { reactive } from 'vue';
+
+const { t } = useI18n()
 
 defineProps({
-  schedules: Array
+  schedules: Object as PropType<ISchedule[]>
 })
 
 const scheduleId = ref('')
-const isLoading = ref(false)
-const isSuccess = ref(false)
-const isError = ref(false)
 
-const loading = computed(() => isLoading.value && !isSuccess.value)
-const success = computed(() => !isLoading.value && isSuccess.value)
-const error = computed(() => !isLoading.value && isError.value)
-
-const ableToSelect = computed(() => !loading.value && !success.value && !error.value)
+const alert = reactive<IAlert>({
+  message: null,
+  type: null
+})
 
 const login = () => {
   googleSdkLoaded((google) => {
@@ -57,20 +54,25 @@ const login = () => {
 }
 
 const importCalendar = async (response: IResponse) => {
-  isLoading.value = true
+  alert.type = AlertType.WARNING
+  alert.message = t('import.status.loading') 
+
   const params = new URLSearchParams({
     code: response.code,
     scheduleId: scheduleId.value
   })
 
-  return await fetch(`${import.meta.env.PUBLIC_API_URL}/auth/token?${params}`)
-    .then(() => {
-      isLoading.value = false
-      isSuccess.value = true
+  return await fetch(`${import.meta.env.PUBLIC_API_URL}auth/token?${params}`)
+    .then((response) => {
+      return response.ok ? response.json() : Promise.reject(response)
     })
-    .catch(() => {
-      isLoading.value = false
-      isError.value = true
+    .then(() => {
+      alert.type = AlertType.SUCCESS
+      alert.message = t('import.status.success') 
+    })
+    .catch((response) => {
+      alert.type = AlertType.ERROR
+      alert.message = t(`error.http.${response.status}`)
     })
 }
 </script>

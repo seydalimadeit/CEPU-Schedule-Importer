@@ -1,15 +1,18 @@
 <template>
   <div
     v-for="day in weekdays"
+    :key="day"
   >
     <span class="schedule__event-list-day">
       {{ day }}
     </span>
     
     <div 
+      v-if="eventsSortedByDay[day]"
       v-for="weekType in Object.keys(eventsSortedByDay[day])"
+      :key="weekType"
     >
-      <div class="schedule__event-list-type">{{ weekType }}</div>
+      <div class="schedule__event-list-type">{{ t(`schedule.entity.weekType.${weekType}`) }}</div>
       <div class="schedule__event-list">
         <ScheduleEvent 
           v-for="event in eventsSortedByDay[day][weekType]"
@@ -27,8 +30,16 @@ import { ScheduleEmit } from '@/constants/emits';
 import type { IEvent } from '@/interfaces/interfaces';
 import { computed, reactive } from '@vue/reactivity';
 import moment from 'moment';
+import 'moment/dist/locale/ru';
 import ScheduleEvent from './ScheduleEvent.vue';
 import type { PropType } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+moment.locale('ru')
+
+const { t } = useI18n()
+
+const ru = moment().locale('ru')
 
 defineEmits([ScheduleEmit.DELETE])
 

@@ -1,6 +1,6 @@
 <template>
   <div class="schedule__wrapper">
-    <h2 class="schedule__title">Schedules ({{ state.schedules.length }})</h2>
+    <h2 class="schedule__title">{{ t('schedule.title', 2) }} ({{ state.schedules.length }})</h2>
 
     <ScheduleSearch
       :search="state.search"
@@ -21,6 +21,9 @@ import ScheduleTable from '@/components/schedules/ScheduleTable.vue';
 import api from "@/utils/endpoints";
 import { reactive, computed } from "@vue/runtime-core";
 import ScheduleSearch from "./ScheduleSearch.vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n()
 
 interface State {
   search: string,

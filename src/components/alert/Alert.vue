@@ -14,7 +14,6 @@ import { computed } from '@vue/runtime-core'
 import { AlertType } from '@/constants/alert'
 
 const props = defineProps({
-  message: String,
   type: String
 })
 

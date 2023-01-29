@@ -9,6 +9,7 @@
 @import './alert.scss';
 @import './schedule.scss';
 @import './variables.scss';
+@import './login.scss';
 
 html {
   font-family: 'Inter', sans-serif;
@@ -31,6 +32,9 @@ main {
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
+  width: 100%;
+
+  max-width: 75rem;
 }
 
 h1 {

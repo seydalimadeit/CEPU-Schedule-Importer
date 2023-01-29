@@ -1,0 +1,8 @@
+{
+  "login": {
+    "messages": {
+      "required": "You have to login to access this page.",
+      "success": "Logged in successfully."
+    }
+  }
+}

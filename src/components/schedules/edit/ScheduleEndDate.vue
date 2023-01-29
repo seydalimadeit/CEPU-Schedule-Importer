@@ -1,6 +1,6 @@
 <template>
   <div class="schedule__edit-enddate">
-    <span class="schedule__edit-enddate-label">Schedule end date:</span>
+    <span class="schedule__edit-enddate-label">{{ t('schedule.entity.date.end') }}:</span>
     <Datepicker 
       :class="[
         'schedule__edit-enddate-selector',
@@ -20,6 +20,9 @@ import { watch } from '@vue/runtime-core';
 import useVuelidate from '@vuelidate/core';
 import Datepicker from '@vuepic/vue-datepicker';
 import { required } from '@vuelidate/validators'
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const props = defineProps({
   endDate: Date

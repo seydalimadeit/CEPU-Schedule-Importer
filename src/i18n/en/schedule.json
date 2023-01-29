@@ -1,0 +1,36 @@
+{
+  "schedule": {
+    "title": "Schedule | Schedules",
+    "error": {
+      "load": "Error while loading schedules."
+    },
+    "actions": "Actions",
+    "edit": "Edit schedule",
+    "save": {
+      "title": "Save",
+      "success": "Schedule saved successfully."
+    },
+    "entity": {
+      "title": "Title",
+      "description": "Description",
+      "date": {
+        "end": "Schedule end date"
+      },
+      "time": {
+        "start": "Start time",
+        "end": "End time"
+      },
+      "weekType": {
+        "title": "Week type",
+        "both": "Numerator / Denominator",
+        "numerator": "Numerator",
+        "denominator": "Denominator"
+      },
+      "events": {
+        "unsorted": {
+          "title": "Unsorted events"
+        }
+      }
+    }
+  }
+}

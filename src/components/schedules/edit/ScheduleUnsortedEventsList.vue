@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="schedule__event-list-day">
-      Unsorted events
+      {{ t('schedule.entity.events.unsorted.title') }}
       <button @click="addEvent">
         <FAIcon icon="circle-plus" />
       </button>
@@ -25,6 +25,9 @@ import { PropType, reactive } from 'vue';
 import moment from 'moment';
 import ScheduleEvent from './ScheduleEvent.vue';
 import { ScheduleEvent as Event } from '@/classes/event.class';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const props = defineProps({
   events: {

@@ -6,7 +6,7 @@
     ]"
   >
     <h2>
-      Title: 
+      {{ t('schedule.entity.title') }}: 
       <input 
         :class="[
           'schedule__edit-input',
@@ -22,7 +22,7 @@
       ]"
       @click="$emit(ScheduleEmit.SAVE)"
     >
-      Save
+      {{ t('schedule.save.title') }}
     </button>
   </div>
 </template>
@@ -33,6 +33,9 @@ import { computed, reactive } from '@vue/reactivity';
 import { watch } from '@vue/runtime-core';
 import useVuelidate from '@vuelidate/core';
 import { required, minLength } from '@vuelidate/validators'
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const props = defineProps({
   name: {

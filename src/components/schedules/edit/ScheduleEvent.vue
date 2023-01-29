@@ -6,10 +6,9 @@
     ]"
   >
     <div>
-      {{ t('message') }}
       <div class="schedule__event-header">
         <div class="schedule__event-input-group">
-          <span>Title:</span>
+          <span>{{ t('schedule.entity.title') }}:</span>
 
           <div class="schedule__event-input-field">
             <input
@@ -38,7 +37,7 @@
       </div>
 
       <div class="schedule__event-input-group">
-        <span>Description:</span>
+        <span>{{ t('schedule.entity.description') }}:</span>
 
         <div class="schedule__event-input-field">
           <input
@@ -60,7 +59,7 @@
       </div>
 
       <div class="schedule__event-input-group">
-        <span>Start time:</span>
+        <span>{{ t('schedule.entity.time.start') }}:</span>
         <Datepicker 
           v-model="startTime" 
           :time-picker="!props.dateSelect"
@@ -69,7 +68,7 @@
       </div>
 
       <div class="schedule__event-input-group">
-        <span>End time:</span>
+        <span>{{ t('schedule.entity.time.end') }}:</span>
         <Datepicker 
           v-model="endTime" 
           :time-picker="!props.dateSelect"
@@ -78,7 +77,7 @@
       </div>
 
       <div class="schedule__event-input-group">
-        <span>Week type:</span>
+        <span>{{ t('schedule.entity.weekType.title') }}:</span>
         <select 
           :class="[
             'schedule__input',
@@ -87,9 +86,13 @@
           v-model="v$.extendedProperties.shared.weekType.$model"
           @change="changeWeekType"
         >
-          <option value="both" selected>both</option>
-          <option value="numerator">numerator</option>
-          <option value="denominator">denominator</option>
+          <option 
+            v-for="weekType in weekTypes"
+            :key="weekType"
+            :value="weekType"
+          >
+            {{ t(`schedule.entity.weekType.${weekType}`) }}
+          </option>
         </select>
       </div>
     </div>
@@ -108,6 +111,8 @@ import { required, minLength, helpers } from '@vuelidate/validators'
 import { ScheduleEmit } from '@/constants/emits';
 import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
+
 const props = defineProps({
   event: {
     required: true,
@@ -119,7 +124,9 @@ const props = defineProps({
   }
 })
 
-const { t } = useI18n()
+const weekTypes = computed(() => {
+  return ['both', 'numerator', 'denominator'] 
+})
 
 const emit = defineEmits([ScheduleEmit.DELETE])
 
@@ -127,11 +134,11 @@ const deleteIcon = 'trash'
 
 const rules = computed(() => ({
   description: {
-    required: helpers.withMessage('req', required),
+    required: helpers.withMessage(t('validation.required'), required),
     minLength: minLength(1)
   },
   start: {
-    required: helpers.withMessage('req', required),
+    required: helpers.withMessage(t('validation.required'), required),
     dateTime: {
       required,
       minValue: value => moment(value).isValid()
@@ -142,7 +149,7 @@ const rules = computed(() => ({
     }
   },
   end: {
-    required: helpers.withMessage('req', required),
+    required: helpers.withMessage(t('validation.required'), required),
     dateTime: {
       required,
       minValue: value => moment(value).isValid() && moment(value).isAfter(moment(props.event.start.dateTime))
@@ -159,11 +166,11 @@ const rules = computed(() => ({
     }
   },
   reminders: {
-    required: helpers.withMessage('req', required),
+    required: helpers.withMessage(t('validation.required'), required),
   },
   summary: {
     name: {
-      required: helpers.withMessage('req', required),
+      required: helpers.withMessage(t('validation.required'), required),
       minLength: minLength(1)
     },
   } 

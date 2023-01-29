@@ -4,15 +4,11 @@
       <a href="/schedules">
         <FAIcon icon="circle-chevron-left" />
       </a>
-      Edit schedule
+      {{ t('schedule.edit') }}
     </h2>
     
-    <Alert :type="AlertType.SUCCESS" v-if="isSuccess">
-      Saved successfully!
-    </Alert>
-
-    <Alert :type="AlertType.ERROR" v-if="isError">
-      Error occurred!
+    <Alert :type="alert.type" v-if="alert.message && alert.type">
+      {{ alert.message }}
     </Alert>
 
     <ScheduleEditHeader 
@@ -39,12 +35,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ISchedule } from '@/interfaces/interfaces'
+import type { IAlert, ISchedule } from '@/interfaces/interfaces'
 
 import { FetchMethods } from '@/constants/fetch';
 import api from '@/utils/endpoints';
 import { reactive, ref } from '@vue/reactivity';
-import moment from 'moment';
 import { useVuelidate } from '@vuelidate/core'
 
 import { RRule } from 'rrule';
@@ -52,11 +47,12 @@ import ScheduleEditHeader from './ScheduleEditHeader.vue';
 import ScheduleEndDate from './ScheduleEndDate.vue';
 import ScheduleEventList from './ScheduleEventList.vue';
 import ScheduleUnsortedEventsList from './ScheduleUnsortedEventsList.vue';
-import type { PropType } from 'vue';
+import { PropType, watch } from 'vue';
 import Alert from '@/components/alert/Alert.vue'
 import { AlertType } from '@/constants/alert'
+import { useI18n } from 'vue-i18n';
 
-moment.locale('ru')
+const { t } = useI18n()
 
 const props = defineProps({
   schedule: Object as PropType<ISchedule>
@@ -71,8 +67,17 @@ const updateName = (value: string): void => {
   scheduleRef.schedule.name = value
 }
 
-const isSuccess = ref(false)
-const isError = ref(false)
+const alert = reactive<IAlert>({
+  message: null,
+  type: null
+})
+
+watch(alert, () => {
+  setTimeout(() => {
+    alert.message = null
+    alert.type = null
+  }, 5000)
+})
 
 const v = useVuelidate()
 
@@ -94,19 +99,10 @@ const updateEndDate = (date) => {
   })
 }
 
-const success = () => {
-  isSuccess.value = true
-  setTimeout(() => isSuccess.value = false, 5000)
-}
-
-const error = () => {
-  isError.value = true
-  setTimeout(() => isError.value = false, 5000)
-}
-
 const save = async () => {
   if(v.value.$invalid) {
-    error()
+    alert.message = t('error.validation.title')
+    alert.type = AlertType.ERROR
     return
   }
 
@@ -122,10 +118,12 @@ const save = async () => {
 
   await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetchById(props.schedule.id)}`, params)
     .then(() => {
-      success()
+      alert.message = t('schedule.save.success')
+      alert.type = AlertType.SUCCESS
     })
     .catch(() => {
-      error()
+      alert.message = t('error.validation.title')
+      alert.type = AlertType.ERROR
     })
 }
 </script>

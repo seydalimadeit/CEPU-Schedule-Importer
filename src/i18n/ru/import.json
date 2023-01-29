@@ -1,0 +1,12 @@
+{
+  "import": {
+    "title": "Импорт",
+    "heading": "Импортируйте свое <span class='text-gradient'>расписание</span>",
+    "subheading": "Просто введите название своей <span class='text-gradient'>группы</span>",
+    "status": {
+      "loading": "Загрузка вашего расписания.",
+      "success": "Расписание успешно загружено.",
+      "error": "Ошибка при импорте расписания. "
+    }
+  }
+}
