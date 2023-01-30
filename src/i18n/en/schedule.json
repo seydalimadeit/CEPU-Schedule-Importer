@@ -5,7 +5,7 @@
       "load": "Error while loading schedules."
     },
     "actions": "Actions",
-    "edit": "Edit schedule",
+    "edit": "Edit schedule | Edit schedules",
     "save": {
       "title": "Save",
       "success": "Schedule saved successfully."

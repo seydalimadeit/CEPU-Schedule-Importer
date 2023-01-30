@@ -35,11 +35,9 @@ import ScheduleEvent from './ScheduleEvent.vue';
 import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-moment.locale('ru')
+const { t, locale } = useI18n()
 
-const { t } = useI18n()
-
-const ru = moment().locale('ru')
+moment.locale(locale.value)
 
 defineEmits([ScheduleEmit.DELETE])
 
