@@ -63,21 +63,16 @@ export class SchedulesService {
   }
 
   async parseXLSX(file) {
+    const fileName = decodeURIComponent(file.originalname);
+
     const workbook = readFile(file.path);
     unlink(file.path, () => null);
     const sheet = workbook.Sheets['Лист1'];
+
     const events = [];
 
-    const groupNameCell = ['D', 'H', 'L', 'P'];
-
-    const fileName = groupNameCell
-      .map((cell) => {
-        return `${sheet[`${cell}6`].w}`;
-      })
-      .join('_');
-
-    const startCell = 8;
-    const finishCell = 68;
+    const startCell = 7;
+    const finishCell = 73;
 
     const weekDayCell = ['A'];
     const studyNumberCell = ['B'];

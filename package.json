@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "astro dev --host",
-    "start": "astro dev",
+    "start": "npm run start:backend & astro dev",
+    "start:backend": "cd server && npm run start:dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -31,6 +32,7 @@
     "vue3-google-login": "^2.0.12"
   },
   "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.8.1",
     "@types/vue-select": "^3.16.2",
     "@types/vuelidate": "^0.7.15",
     "eslint": "^8.32.0",

@@ -1,3 +1,4 @@
+import { FetchMethods } from '@/constants/fetch';
 import { AlertType } from './../constants/alert';
 export interface ISchedule {
   id: string

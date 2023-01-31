@@ -3,7 +3,8 @@ export enum ScheduleEmit {
   DELETE = 'DELETE',
   SAVE = 'SAVE',
   UPDATE_NAME = 'UPDATE:NAME',
-  UPDATE_END_DATE = 'UPDATE:ENDDATE'
+  UPDATE_END_DATE = 'UPDATE:ENDDATE',
+  UPLOADED = 'UPLOADED'
 }
 
 export enum SearchEvent {

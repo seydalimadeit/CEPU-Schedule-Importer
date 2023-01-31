@@ -5,6 +5,7 @@
     <ScheduleSearch
       :search="state.search"
       @UPDATE:SEARCH="updateSearch"
+      @UPLOADED="loadSchedules"
     />
 
     <ScheduleTable
@@ -52,7 +53,7 @@ const searchedSchedules = computed(() => {
 })
 
 const loadSchedules = async () => {
-  const schedules = await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetch()}`)
+  const schedules = await fetch(`${import.meta.env.PUBLIC_API_URL}${api.schedules.fetch()}`)
     .then(response => response.json())
 
   state.schedules = schedules

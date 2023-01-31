@@ -6,8 +6,11 @@
       </a>
     </div>
     <div>
-      <span v-for="locale in availableLocales" :key="locale" @click="changeLocale">
-        {{ locale }} |
+      <span 
+        v-for="locale in availableLocales" 
+        @click="changeLocale"
+      >
+        {{ locale }} /
       </span>
     </div>
   </div>

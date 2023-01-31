@@ -44,12 +44,11 @@ const oneTap = () => {
       const { credential } = response
       cookie.setCookie('token', credential);
 
-      const request = await fetch(`${import.meta.env.PUBLIC_API_URL}${endpoints.auth.validateToken()}`, {
-        headers: {
-          'Content-type' : 'application/json'
-        },
+      const params: RequestInit = {
         credentials: 'include'
-      })
+      }
+
+      const request = await fetch(`${import.meta.env.PUBLIC_API_URL}${endpoints.auth.validateToken()}`, params)
 
       tokenValidationStatus.value = request.status
 

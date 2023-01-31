@@ -108,18 +108,25 @@ const save = async () => {
 
   scheduleRef.schedule.events = [...scheduleRef.schedule.events, ...addedEvents.value]
 
-  const params = {
+  const params: RequestInit = {
     method: FetchMethods.PATCH,
     body: JSON.stringify(scheduleRef.schedule),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
+    credentials: 'include'
   }
 
-  await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetchById(props.schedule.id)}`, params)
-    .then(() => {
-      alert.message = t('schedule.save.success')
-      alert.type = AlertType.SUCCESS
+  await fetch(`${import.meta.env.PUBLIC_API_URL}${api.schedules.fetchById(props.schedule.id)}`, params)
+    .then((response) => {
+      if(response.status === 200) {
+        alert.message = t('schedule.save.success')
+        alert.type = AlertType.SUCCESS
+        return
+      }
+
+      alert.message = t(`error.http.${response.status}`)
+      alert.type = AlertType.ERROR
     })
     .catch(() => {
       alert.message = t('error.validation.title')

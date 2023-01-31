@@ -41,12 +41,13 @@ const emit = defineEmits([
 const deleteSchedule = async (id: string) => {
   const confirmed = confirm("Are you sure?");
 
-  const params = {
-    method: FetchMethods.DELETE
+  const params: RequestInit = {
+    method: FetchMethods.DELETE,
+    credentials: 'include'
   }
   
   if(confirmed) {
-    await fetch(`${import.meta.env.PUBLIC_API_URL}/${api.schedules.fetchById(id)}`, params)
+    await fetch(`${import.meta.env.PUBLIC_API_URL}${api.schedules.fetchById(id)}`, params)
     emit(ScheduleEmit.DELETE)
   }
 }

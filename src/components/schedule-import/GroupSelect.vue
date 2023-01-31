@@ -63,9 +63,7 @@ const importCalendar = async (response: IResponse) => {
   })
 
   return await fetch(`${import.meta.env.PUBLIC_API_URL}auth/token?${params}`)
-    .then((response) => {
-      return response.ok ? response.json() : Promise.reject(response)
-    })
+    .then((response) => response.ok ? response : Promise.reject(response))
     .then(() => {
       alert.type = AlertType.SUCCESS
       alert.message = t('import.status.success') 
