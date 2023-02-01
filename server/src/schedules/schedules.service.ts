@@ -69,10 +69,22 @@ export class SchedulesService {
     unlink(file.path, () => null);
     const sheet = workbook.Sheets['Лист1'];
 
-    const events = [];
+    const startCell = Number(
+      Object.keys(sheet)
+        .find((key) => WeekDay[WeekDay[sheet[key].w]] === 1)
+        .replace(/^\D+/g, ''),
+    );
 
-    const startCell = 7;
-    const finishCell = 73;
+    const finishCell = Number(
+      Object.keys(sheet)
+        .find(
+          (key) =>
+            sheet[key] && sheet[key].w && sheet[key].w.startsWith('Начальник'),
+        )
+        .replace(/^\D+/g, ''),
+    );
+
+    const events = [];
 
     const weekDayCell = ['A'];
     const studyNumberCell = ['B'];

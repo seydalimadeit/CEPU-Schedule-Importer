@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev --host",
-    "start": "npm run start:backend & astro dev",
+    "dev": "npm run start:backend & astro dev --host",
+    "start": "astro dev",
     "start:backend": "cd server && npm run start:dev",
     "build": "astro build",
     "preview": "astro preview",
