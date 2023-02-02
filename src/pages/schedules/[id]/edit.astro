@@ -16,7 +16,7 @@ const schedule = await getSchedule(Astro.request, id)
 <Layout title={`Edit schedule ${schedule.name}`}>
   <Authorized>
     <ScheduleEdit
-      client:only 
+      client:only="vue"
       schedule={schedule}
     />
   </Authorized>

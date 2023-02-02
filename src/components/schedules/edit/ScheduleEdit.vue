@@ -7,30 +7,32 @@
       {{ t('schedule.edit') }}
     </h2>
     
-    <Alert :type="alert.type" v-if="alert.message && alert.type">
-      {{ alert.message }}
-    </Alert>
+    <div v-if="scheduleRef.schedule">
+      <Alert :type="alert.type" v-if="alert.message && alert.type">
+        {{ alert.message }}
+      </Alert>
 
-    <ScheduleEditHeader 
-      :name="scheduleRef.schedule.name"
-      :is-valid="!v.$invalid"
-      @UPDATE:NAME="updateName"
-      @SAVE="save"
-    />
+      <ScheduleEditHeader 
+        :name="scheduleRef.schedule.name"
+        :is-valid="!v.$invalid"
+        @UPDATE:NAME="updateName"
+        @SAVE="save"
+      />
 
-    <ScheduleEndDate 
-      :end-date="scheduleRef.endDate" 
-      @UPDATE:ENDDATE="updateEndDate"
-    />
+      <ScheduleEndDate 
+        :end-date="scheduleRef.endDate" 
+        @UPDATE:ENDDATE="updateEndDate"
+      />
 
-    <ScheduleUnsortedEventsList
-      :events="addedEvents" 
-    />
+      <ScheduleUnsortedEventsList
+        :events="addedEvents" 
+      />
 
-    <ScheduleEventList 
-      v-if="scheduleRef.schedule.events.length"
-      :events="scheduleRef.schedule.events"
-    />
+      <ScheduleEventList 
+        v-if="scheduleRef.schedule.events.length"
+        :events="scheduleRef.schedule.events"
+      />
+    </div>
   </div>
 </template>
 
@@ -132,5 +134,7 @@ const save = async () => {
       alert.message = t('error.validation.title')
       alert.type = AlertType.ERROR
     })
+
+  window.location.reload()
 }
 </script>
