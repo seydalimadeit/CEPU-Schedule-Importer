@@ -3,12 +3,14 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'url'
-// https://astro.build/config
+import node from '@astrojs/node';
 import vue from "@astrojs/vue";
 
-// https://astro.build/config
 export default defineConfig({
   output: 'server',
+  adapter: node({
+    mode: 'standalone'
+  }),
   integrations: [
     vue({
       appEntrypoint: '/src/pages/_app.ts'
@@ -17,7 +19,6 @@ export default defineConfig({
   vite: {
     plugins: [
       VueI18nPlugin({
-        runtimeOnly: false,
         include: resolve(dirname(fileURLToPath(import.meta.url)), '/src/i18n/**'),
       }),
     ],

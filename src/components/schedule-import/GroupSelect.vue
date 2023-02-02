@@ -1,10 +1,10 @@
 <template>
   <div class="main__input-input" v-if="!alert.type && !alert.message">
-    <ComponentVSelect 
-      v-model.trim="scheduleId"  
-      :options="schedules" 
-      :reduce="schedule => schedule.id" 
-      label="name"
+    <ModelListSelect 
+      :list="schedules" 
+      option-value="id"
+      option-text="name" 
+      v-model.trim="scheduleId"
     />
     <button class="main__input-btn" @click="login">
       {{ t('import.title') }}
@@ -29,7 +29,7 @@ import Alert from '@/components/alert/Alert.vue'
 import type { IAlert, IResponse, ISchedule } from '@/interfaces/interfaces';
 import { useI18n } from 'vue-i18n';
 import { reactive } from 'vue';
-
+import { ModelListSelect } from "vue-search-select"
 const { t } = useI18n()
 
 defineProps({

@@ -27,7 +27,6 @@ const i18n = createI18n({
   locale: 'ru',
   fallbackLocale: 'en',
   warnHtmlMessage: false,
-  globalInjection: true,
   messages: loadLocaleMessages()
 })
 
@@ -50,6 +49,9 @@ export const initFontAwesome = (app: App) => {
 }
 
 export const initCookies = (app: App) => {
-  VueCookieNext.config({ expire: '30d' })
+  VueCookieNext.config({ 
+    expire: '30d', 
+  })
+  
   app.use(VueCookieNext)
 }
