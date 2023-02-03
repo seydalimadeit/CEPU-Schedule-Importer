@@ -108,11 +108,15 @@ const save = async () => {
     return
   }
 
-  scheduleRef.schedule.events = [...scheduleRef.schedule.events, ...addedEvents.value]
+  const events = [...scheduleRef.schedule.events, ...addedEvents.value]
+  const schedule = {
+    ...scheduleRef.schedule,
+    events
+  }
 
   const params: RequestInit = {
     method: FetchMethods.PATCH,
-    body: JSON.stringify(scheduleRef.schedule),
+    body: JSON.stringify(schedule),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
@@ -134,7 +138,5 @@ const save = async () => {
       alert.message = t('error.validation.title')
       alert.type = AlertType.ERROR
     })
-
-  window.location.reload()
 }
 </script>
