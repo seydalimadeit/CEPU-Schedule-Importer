@@ -9,6 +9,7 @@ export interface Props {
 import Footer from '@/components/layout/Footer.vue'
 
 const { title } = Astro.props;
+const gtagId = import.meta.env.PUBLIC_GTAG
 ---
 
 <!DOCTYPE html>
@@ -19,6 +20,19 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+    <script
+      type="text/partytown"
+      src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
+    >
+    </script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", gtagId);
+    </script>
 	</head>
 	<body>
 		<slot />

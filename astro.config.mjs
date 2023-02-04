@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
-
+import partytown from "@astrojs/partytown";
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'url'
 import node from '@astrojs/node';
@@ -14,6 +14,11 @@ export default defineConfig({
   integrations: [
     vue({
       appEntrypoint: '/src/pages/_app.ts'
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
     }),
   ],
   vite: {

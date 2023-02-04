@@ -6,6 +6,13 @@
       </a>
     </div>
     <div>
+      <span>
+        {{ t('contact.us.title') }}: 
+        <a :href="botURL" target="_blank">
+          TG Bot
+        </a>
+      </span> 
+      | 
       <select v-model="$i18n.locale" @change="saveSelectedLang">
         <option v-for="locale in availableLocales" :value="locale">{{ locale }}</option>
       </select>
@@ -25,7 +32,9 @@ const saveSelectedLang = () => {
   cookie.setCookie('lang', locale.value as string)
 }
 
+const botURL = import.meta.env.PUBLIC_FEEDBACK_TG_BOT_URL
+
 onMounted(() => {
-  locale.value = cookie.getCookie('lang') || 'en'
+  locale.value = cookie.getCookie('lang') || 'ru'
 })
 </script>

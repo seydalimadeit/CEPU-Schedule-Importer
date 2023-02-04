@@ -11,7 +11,7 @@ const schedules = await getSchedules(Astro.request)
 <Layout title="Schedules list">
   <Authorized>
     <ScheduleList 
-      client:load
+      client:only="vue"
       schedules={schedules} 
     />
   </Authorized>
