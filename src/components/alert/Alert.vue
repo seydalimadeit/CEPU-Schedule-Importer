@@ -1,7 +1,7 @@
 <template>
   <div :class="className">
     <div class="alert__icon">
-      <FAIcon :icon="icon" />
+      <FAIcon :icon="icon" :title="icon" />
     </div>
     <div class="alert__text">
       <slot />

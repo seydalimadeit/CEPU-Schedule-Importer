@@ -5,6 +5,16 @@ import { faCircleXmark, faCircleCheck, faTriangleExclamation, faPenToSquare, faT
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { VueCookieNext } from 'vue-cookie-next'
 
+library.add(
+  faCircleXmark,
+  faCircleCheck,
+  faTriangleExclamation,
+  faPenToSquare,
+  faTrash,
+  faCircleChevronLeft,
+  faCirclePlus
+);
+
 function loadLocaleMessages() {
   const locales = import.meta.glob<Record<string, string>>('../i18n/**/*.json', { eager: true })
 
@@ -22,7 +32,7 @@ function loadLocaleMessages() {
   return messages
 }
 
-const i18n = createI18n({
+export const i18n = createI18n({
   legacy: false,
   locale: 'ru',
   fallbackLocale: 'en',
@@ -35,16 +45,6 @@ export const initI18n = (app: App) => {
 }
 
 export const initFontAwesome = (app: App) => {
-  library.add(
-    faCircleXmark,
-    faCircleCheck,
-    faTriangleExclamation,
-    faPenToSquare,
-    faTrash,
-    faCircleChevronLeft,
-    faCirclePlus
-  );
-
   app.component("FAIcon", FontAwesomeIcon)
 }
 
