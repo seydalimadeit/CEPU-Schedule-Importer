@@ -1,6 +1,7 @@
 <template>
   <div class="main__input-input" v-if="!alert.type && !alert.message">
     <ModelListSelect 
+      :placeholder="t('placeholder.search')"
       :list="schedules" 
       option-value="id"
       option-text="name" 

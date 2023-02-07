@@ -27,5 +27,10 @@ export default defineConfig({
         include: resolve(dirname(fileURLToPath(import.meta.url)), '/src/i18n/**'),
       }),
     ],
+    optimizeDeps: {
+      exclude: [
+        'fsevents',
+      ],
+    },
   },
 });

@@ -158,7 +158,7 @@ export class SchedulesService {
   }
 
   public async createEvent(weekDay, studySummary, studyTime, studyAudithory) {
-    const location = 'КИПУ';
+    const location = `${studyAudithory}, КИПУ`;
 
     const startDay = WeekDay[weekDay.trim()];
 
@@ -206,7 +206,7 @@ export class SchedulesService {
     const event = new Event();
 
     const study = await this.getClass(studySummary);
-    const description = await this.getDescription(studySummary, studyAudithory);
+    const description = await this.getDescription(studySummary);
 
     event.summary = study;
     event.location = location;
@@ -220,8 +220,8 @@ export class SchedulesService {
     return await this.eventRepository.save(event);
   }
 
-  public async getDescription(studySummary, studyAudithory) {
-    let description = `Аудитория: ${studyAudithory}`;
+  public async getDescription(studySummary) {
+    let description = 'Преподаватель: ';
     const descriptionRegexp = /\(([^)]+)\)/;
     const matches = descriptionRegexp.exec(studySummary);
     if (matches) {
@@ -229,10 +229,7 @@ export class SchedulesService {
       const savedTeacher = await this.getTeacher(teacher);
 
       if (savedTeacher) {
-        description = description.concat(
-          ' | ',
-          `Преподаватель: ${savedTeacher.name}`,
-        );
+        description = description.concat(`${savedTeacher.name}`);
       }
     }
     return description;
