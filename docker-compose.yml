@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  # Create backend container
+  server:
+    # Create backend container  
+    build: ./server
+    ports:
+      - $PORT:$PORT
+    container_name: schedule-importer-server
+    restart: always
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - DB_NAME=$DB_NAME
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_HOST=$DB_HOST
+      - DB_PORT=$DB_PORT
+      - GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID
+      - GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET
+      - GOOGLE_API_KEY=$GOOGLE_API_KEY
+      - SECRET_KEY=$SECRET_KEY
+      - VALID_EMAILS=$VALID_EMAILS
+      - PORT=$PORT
+  # Create frontend container
+  client: # Name of our service
+    build: . # path to dockerfile
+    ports: # Port binding to host from docker container
+      - 3000:3000 # Bind port 3000 of host to 3000 of container
+    container_name: schedule-importer-client
+    restart: always # What to do if container crashes
+    links:
+      - server
+    environment:
+      - ENV=production
+      - PUBLIC_API_URL=$PUBLIC_API_URL
+      - PUBLIC_GOOGLE_CLIENT_ID=$PUBLIC_GOOGLE_CLIENT_ID
+      - PUBLIC_GTAG=$PUBLIC_GTAG
+      - PUBLIC_FEEDBACK_TG_BOT_URL=$PUBLIC_FEEDBACK_TG_BOT_URL

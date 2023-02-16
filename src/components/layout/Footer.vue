@@ -7,9 +7,8 @@
     </div>
     <div>
       <span>
-        {{ t('contact.us.title') }}: 
         <a :href="botURL" target="_blank">
-          TG Bot
+          {{ t('contact.us.title') }}  
         </a>
       </span> 
       | 
