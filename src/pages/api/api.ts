@@ -9,10 +9,6 @@ async function get<T>(
 	const response = await fetch(`${import.meta.env.PUBLIC_API_URL}${endpoint}`, {
 		headers: incomingReq.headers,
 	});
-  
-	// if (!response.ok) {
-	// 	handleResponseError(response);
-	// }
 
 	return cb(response);
 }
