@@ -52,7 +52,7 @@ const oneTap = () => {
 
       tokenValidationStatus.value = request.status
 
-      if(!(tokenValidationStatus.value === 200)) { 
+      if(tokenValidationStatus.value !== 200) { 
         return oneTap() 
       }
 

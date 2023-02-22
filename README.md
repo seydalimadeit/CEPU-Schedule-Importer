@@ -57,3 +57,5 @@ docker-compose.yml for easy deploy to everywhere
 I know code is not perfect and we always have things to get done, be refactored, etc. But i was developing this project using all the skills that i have at the time. 
 
 I learned something new like astro.js and dockerfile’s / docker-compose and i happy with that.
+
+And, i have to finish tests :)

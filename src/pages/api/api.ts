@@ -1,5 +1,4 @@
 import endpoints from "@/utils/endpoints";
-import { APIContext } from "astro";
 
 async function get<T>(
 	incomingReq: Request,
@@ -11,10 +10,6 @@ async function get<T>(
 	});
 
 	return cb(response);
-}
-
-const handleResponseError = (response: Response) => {
-  return response
 }
 
 export const validateToken = async (req: Request) => {
